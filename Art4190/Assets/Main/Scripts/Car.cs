@@ -27,13 +27,10 @@ public class Car : MonoBehaviour {
 			transform.position = Vector3.MoveTowards(transform.position, tempStopLoc, .1f);
 			if(Vector3.Distance(tempStopLoc, transform.position) <= 0.1f) {
 				StartCoroutine(TempStop());
-			}else{
-				stopped = false;
 			}
 			if(Vector3.Distance(nextDest, transform.position) <= 0.1f) {
-				StartCoroutine(TempStop());
+				//StartCoroutine(TempStop());
 				if(!isDeparting)tc.stopQ.Add(gameObject);
-				StartCoroutine(Stop());
 			}
 		}
 		if(tc.stopQ.Count > 0 && tc.stopQ[0] == gameObject) {
