@@ -7,19 +7,19 @@ public class TrafficController : MonoBehaviour {
 	public GameObject[] spawnLocs, deSpawnLocs, stopLocs;
 	public GameObject carPrefab, carParent;
 	public float spawnInterval;
-	public Queue<GameObject> lane1, lane2, lane3, lane4, stopQ;
-	public Queue<GameObject>[] lanes;
+	public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
+	public List<GameObject>[] lanes;
 
 
 	// Use this for initialization
 	void Start () {
 		spawnInterval = 3f;
-		lane1 = new Queue<GameObject>();
-		lane2 = new Queue<GameObject>();
-		lane3 = new Queue<GameObject>();
-		lane4 = new Queue<GameObject>();
-		stopQ = new Queue<GameObject>();
-		lanes = new Queue<GameObject>[4];
+		lane1 = new List<GameObject>();
+		lane2 = new List<GameObject>();
+		lane3 = new List<GameObject>();
+		lane4 = new List<GameObject>();
+		stopQ = new List<GameObject>();
+		lanes = new List<GameObject>[4];
 		lanes[0] = lane1;
 		lanes[1] = lane2;
 		lanes[2] = lane3;
@@ -32,42 +32,52 @@ public class TrafficController : MonoBehaviour {
 	void Update () {
 		
 	}
-
-	private IEnumerator SpawnCar() {
-		yield return new WaitForSeconds(spawnInterval);
-		print("Sparning car");
-		int rand = Random.Range(0, 3);
-		GameObject currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
+	private Car createCar(GameObject currCar, int rand){
 		Car car = currCar.GetComponent<Car>();
 		car.lane = rand;
 		//Add to queue
-		lanes[rand].Enqueue(currCar);
-
+		lanes[rand].Add(currCar);	
+		return car;
+	}
+	private void rotateCar(Car car, int rand) {
 		//Set stop location
 		Vector3 stopDest = stopLocs[rand].transform.position;
+		car.nextDest = stopDest;
 		//Set rotation of car
 		switch (rand) {
 			case 0:
-				currCar.transform.rotation = Quaternion.Euler(new Vector3(0, 180f, 0));
-				stopDest.x -= (lanes[rand].Count * 3f);
+				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180f, 0));
+				stopDest.x -= ((lanes[rand].Count - 1) * 3f);
 				break;
 			case 1:
-				currCar.transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
-				stopDest.z -= (lanes[rand].Count * 3f);
+				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
+				stopDest.z -= ((lanes[rand].Count - 1) * 3f);
 				break;
 			case 2:
-				currCar.transform.rotation = Quaternion.Euler(new Vector3(0, 270f, 0));
-				stopDest.z += (lanes[rand].Count * 3f);
+				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 270f, 0));
+				stopDest.z += ((lanes[rand].Count - 1) * 3f);
 				break;
 			case 3:
-				currCar.transform.rotation = Quaternion.Euler(Vector3.zero);
-				stopDest.x += (lanes[rand].Count * 3f);
+				car.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+				stopDest.x += ((lanes[rand].Count - 1) * 3f);
 				break;
 			default:
 				Debug.Log("No lane at: " + rand);
 				break;
 		}
-		car.nextDest = stopDest;
+		car.deSpawnLoc = deSpawnLocs[rand].transform.position;
+		car.tempStopLoc = stopDest;
+	}
 
+	private IEnumerator SpawnCar() {
+		yield return new WaitForSeconds(spawnInterval);
+		int rand = Random.Range(0, 1);
+		print("Sparning car");
+
+		GameObject currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
+		rotateCar(createCar(currCar,rand),rand);
+		
+
+		StartCoroutine(SpawnCar());
 	}
 }
