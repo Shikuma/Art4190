@@ -13,13 +13,13 @@ public class Car2 : MonoBehaviour {
 	public int lane, currStopQ;
 
 	GameObject gc;
-	TrafficController tc;
+	TrafficController2 tc;
 
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
 		gc = GameObject.FindWithTag("GameController");
-		tc = gc.GetComponent<TrafficController>();
+		tc = gc.GetComponent<TrafficController2>();
 		currDestination = Vector3.zero;
 	}
 	
@@ -49,9 +49,9 @@ public class Car2 : MonoBehaviour {
 		departed = true;
 		stopped = false;
 		agent.destination = despawnLocation;
-
+		print(tc.stopQ);
 		//Update the Stop Queue
-		tc.stopQ.RemoveAt(0);
+		tc.stopQ.Remove(gameObject);
 		//Move all cars in the StopQ up 1 position in the queue
 		//This would be so much easier if queues worked kms
 		if (tc.stopQ.Count > 1) {
@@ -61,7 +61,7 @@ public class Car2 : MonoBehaviour {
 				tc.stopQ.RemoveAt(i);
 			}
 		}
-
+		print("EG: " + tc.lanes.Length);
 		//Update the lane list
 		//tempLane.Add(gameObject);
 		List<GameObject> tempLane = new List<GameObject>();

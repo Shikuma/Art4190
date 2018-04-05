@@ -7,8 +7,8 @@ public class TrafficController2 : MonoBehaviour {
 	public GameObject[] spawnLocs, deSpawnLocs, stopLocs;
 	public GameObject carPrefab, carParent;
 	public float spawnInterval;
-	public static List<GameObject> lane1, lane2, lane3, lane4, stopQ;
-	public static List<GameObject>[] lanes;
+	public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
+	public List<GameObject>[] lanes;
 
 	// Use this for initialization
 	void Start () {
