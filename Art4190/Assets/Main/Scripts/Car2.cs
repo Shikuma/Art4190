@@ -10,7 +10,7 @@ public class Car2 : MonoBehaviour {
 	public float stopDuration;
 	public bool stopped, departed;
 	public Vector3 stopLocation, nextDestination, currDestination, despawnLocation;
-	public int lane, currStopQ;
+	public int lane, currStopQ, carID;
 
 	GameObject gc;
 	TrafficController2 tc;
@@ -45,9 +45,10 @@ public class Car2 : MonoBehaviour {
 	}
 
 	private IEnumerator Stop() {
-		yield return new WaitForSeconds(stopDuration);
 		departed = true;
 		stopped = false;
+		yield return new WaitForSeconds(stopDuration);
+		tc.lanes[lane].carsInLane--;
 		agent.destination = despawnLocation;
 		print(tc.stopQ);
 		//Update the Stop Queue
@@ -61,18 +62,41 @@ public class Car2 : MonoBehaviour {
 				tc.stopQ.RemoveAt(i);
 			}
 		}
+
+		//Loop the cars that are currently in the lane to move up one space
+		for(int i = carID; i < carID + tc.lanes[lane].carsInLane; i++) {
+			Car2 car = tc.lanes[lane].cars[i].GetComponent<Car2>();
+			switch (lane) {
+				case 0:
+					car.nextDestination.x += 3f;
+					break;
+				case 1:
+					car.nextDestination.z += 3f;
+					break;
+				case 2:
+					car.nextDestination.z -= 3f;
+					break;
+				case 3:
+					car.nextDestination.x -= 3f;
+					break;
+				default:
+					break;
+			}
+		}
+
+		/*
 		print("EG: " + tc.lanes.Length);
 		//Update the lane list
 		//tempLane.Add(gameObject);
-		List<GameObject> tempLane = new List<GameObject>();
-		tempLane.AddRange(tc.lanes[lane]);
+		//List<GameObject> tempLane = new List<GameObject>();
+		//tempLane.AddRange(tc.lanes[lane]);
 		//Debug.Log("STOPPED COUNT: " + tempLane);
 		Debug.Log("STOPPED LANE: " + lane);
-		tempLane.RemoveAt(0);
+		tc.lanes[lane].RemoveAt(0);
 		//Move all cars in the lane up 1 space
-		if (tempLane.Count > 1) {
-			for (int i = 1; i < tempLane.Count; i++) {
-				Car2 car = tempLane[i].GetComponent<Car2>();
+		if (tc.lanes[lane].Count > 1) {
+			for (int i = 1; i < tc.lanes[lane].Count; i++) {
+				Car2 car = tc.lanes[lane][i].GetComponent<Car2>();
 				switch (lane) {
 					case 0:
 						car.nextDestination.x += 3f;
@@ -88,11 +112,13 @@ public class Car2 : MonoBehaviour {
 						break;
 					default:
 						break;
-
 				}
-				tempLane[i - 1] = tempLane[i];
-				tempLane.RemoveAt(i);
+				tc.lanes[lane][i - 1] = tc.lanes[lane][i];
+				tc.lanes[lane].RemoveAt(i);
+				print("Previous car dest: " + tc.lanes[lane][i - 1].gameObject.GetComponent<Car2>().nextDestination);
+				//tc.lanes[lane].AddRange(tc.lanes[lane]);
 			}
 		}
+		*/
 	}
 }

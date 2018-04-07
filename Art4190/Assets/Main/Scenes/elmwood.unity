@@ -1062,6 +1062,7 @@ GameObject:
   - component: {fileID: 1269087488}
   - component: {fileID: 1269087487}
   - component: {fileID: 1269087490}
+  - component: {fileID: 1269087491}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1160,6 +1161,26 @@ MonoBehaviour:
   carPrefab: {fileID: 1519332128810338, guid: 86d19acfc43af8e49911a7f5942324f5, type: 2}
   carParent: {fileID: 1573529932}
   spawnInterval: 0
+  stopQ: []
+  lanes: []
+--- !u!114 &1269087491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269087486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce06b73e7a463dc4cb9fc3dad3227bcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cars: []
+  currChildToSpawn: 0
+  maxChildren: 0
+  currChildCount: 0
+  laneNum: 0
+  carsInLane: 0
+  full: 0
 --- !u!1 &1564835666
 GameObject:
   m_ObjectHideFlags: 0
