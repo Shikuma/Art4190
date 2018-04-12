@@ -29,58 +29,72 @@ public class Car2 : MonoBehaviour {
 			if (currDestination != nextDestination) {
 				currDestination = nextDestination;
 				agent.destination = currDestination;
-				Debug.Log("Stop dest: " + stopLocation + ". Curr dest: " + currDestination);
+				Debug.Log("ID: " + lane + "-" + carID + ". Stop dest: " + stopLocation + ". Curr dest: " + currDestination);
 			}
-			if (transform.position.x == stopLocation.x && transform.position.z == stopLocation.z && !stopped) {
+			if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == stopLocation && !stopped) {
+				//print("ID: " + lane + "-" + carID + ". STOPPED IN STOPQ");
 				stopped = true;
-				tc.stopQ.Add(gameObject);
-				currStopQ = tc.stopQ.Count - 1;
-				Debug.Log("Car is stopped in position: " + currStopQ + ".");
+				tc.stopQ[tc.carsInStopQ] = gameObject;
+				tc.carsInStopQ++;
+				currStopQ = tc.carsInStopQ;
 			}
-			else if (stopped && currStopQ == 0) {
+			else if (stopped && currStopQ == 1 && tc.carsInStopQ > 0) {
 				StartCoroutine(Stop());
 			}
 		}
-		
+		else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
+			gameObject.SetActive(false);
+		}
 	}
 
 	private IEnumerator Stop() {
 		departed = true;
 		stopped = false;
+		//print("ID: " + lane + "-" + carID + ". DEPARTING IN LANE: " + lane);
 		yield return new WaitForSeconds(stopDuration);
-		tc.lanes[lane].carsInLane--;
+		tc.lanes[lane].carsInLane = tc.lanes[lane].carsInLane > 0 ? tc.lanes[lane].carsInLane-1 : 0;
+		//tc.lanes[lane].carsInLane--;
+		currDestination = despawnLocation;
 		agent.destination = despawnLocation;
-		print(tc.stopQ);
+
 		//Update the Stop Queue
-		tc.stopQ.Remove(gameObject);
 		//Move all cars in the StopQ up 1 position in the queue
-		//This would be so much easier if queues worked kms
-		if (tc.stopQ.Count > 1) {
-			for (int i = 1; i < tc.stopQ.Count; i++) {
+		tc.carsInStopQ = tc.carsInStopQ > 0 ? tc.carsInStopQ - 1 : tc.carsInStopQ = 0;
+		if (tc.carsInStopQ > 0) {
+			for (int i = 1; i < tc.carsInStopQ+1; i++) {
 				tc.stopQ[i].GetComponent<Car2>().currStopQ--;
 				tc.stopQ[i - 1] = tc.stopQ[i];
-				tc.stopQ.RemoveAt(i);
 			}
 		}
 
-		//Loop the cars that are currently in the lane to move up one space
-		for(int i = carID; i < carID + tc.lanes[lane].carsInLane; i++) {
-			Car2 car = tc.lanes[lane].cars[i].GetComponent<Car2>();
-			switch (lane) {
-				case 0:
-					car.nextDestination.x += 3f;
-					break;
-				case 1:
-					car.nextDestination.z += 3f;
-					break;
-				case 2:
-					car.nextDestination.z -= 3f;
-					break;
-				case 3:
-					car.nextDestination.x -= 3f;
-					break;
-				default:
-					break;
+		//print("Attempting to update the rest of the lane. Cars in lane: " + tc.lanes[lane].carsInLane + ". ");
+		if (tc.lanes[lane].carsInLane > 0) {
+			int currIndex = carID;
+			//Loop the cars that are currently in the lane to move up one space
+			for (int i = 0; i < tc.lanes[lane].carsInLane; i++) {
+				//Wait half a second to let the car in front move.
+				yield return new WaitForSeconds(1f);
+				
+				currIndex++;
+				if (currIndex > tc.lanes[lane].maxChildren-1) currIndex = 0;
+				//print("ID: " + lane + "-" + carID + ". Updating car at index: " + currIndex + ".");
+				Car2 car = tc.lanes[lane].cars[currIndex].GetComponent<Car2>();
+				switch (lane) {
+					case 0:
+						car.nextDestination.x += 3f;
+						break;
+					case 1:
+						car.nextDestination.z += 3f;
+						break;
+					case 2:
+						car.nextDestination.z -= 3f;
+						break;
+					case 3:
+						car.nextDestination.x -= 3f;
+						break;
+					default:
+						break;
+				}
 			}
 		}
 

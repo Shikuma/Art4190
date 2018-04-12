@@ -8,19 +8,20 @@ public class TrafficController2 : MonoBehaviour {
 	public GameObject carPrefab, carParent;
 	public float spawnInterval;
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
-	public List<GameObject> stopQ;
+	public GameObject[] stopQ;
 	public Lane[] lanes;
+	public int carsInStopQ = 0;
 
 	Lane lane1, lane2, lane3, lane4;
 
 	// Use this for initialization
 	void Start () {
 		spawnInterval = 3f;
-		lane1 = new Lane(15, 0);
-		lane2 = new Lane(15, 1);
-		lane3 = new Lane(15, 2);
-		lane4 = new Lane(15, 3);
-		stopQ = new List<GameObject>();
+		lane1 = new Lane(5, 0);
+		lane2 = new Lane(5, 1);
+		lane3 = new Lane(5, 2);
+		lane4 = new Lane(5, 3);
+		stopQ = new GameObject[4];
 		lanes = new Lane[4];
 		lanes[0] = lane1;
 		lanes[1] = lane2;
@@ -31,12 +32,15 @@ public class TrafficController2 : MonoBehaviour {
 
 	private IEnumerator SpawnCar() {
 		yield return new WaitForSeconds(spawnInterval);
-		//spawnInterval = 2f;
+
+		//uncomment to spawn 1 car
+		//spawnInterval = 200000f;
+
 		int rand = Random.Range(0, lanes.Length - 1);
-		print("Spawning car");
+		//print("Spawning car");
 		GameObject currCar;
 		Car2 car;
-		print(lanes[rand].full);
+		
 		//If the lane pool is not full, instantiate a new one
 		if (!lanes[rand].full) {
 			currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
@@ -45,17 +49,20 @@ public class TrafficController2 : MonoBehaviour {
 			lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
 			car.carID = lanes[rand].currChildToSpawn;
 			car.lane = rand;
-			if (lanes[rand].currChildToSpawn == lanes[rand].maxChildren) lanes[rand].full = true;
-		
+			if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
+				print("LANE " + rand + " IS FULL");
+				lanes[rand].full = true;
+			}
 		//If it is full, pool the last one back to the spawn pos
 		}else {
+			print("INITIATING POOLING NOW OKAY THANK YOU");
 			currCar = lanes[rand].cars[lanes[rand].currChildToSpawn];
 			car = currCar.GetComponent<Car2>();
 			currCar.SetActive(true);
 			currCar.transform.position = spawnLocs[rand].transform.position;
-			
 		}
-		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren ? 0 : lanes[rand].currChildToSpawn++;
+		lanes[rand].carsInLane++;
+		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren-1 ? 0 : lanes[rand].currChildToSpawn+1;
 		rotateCar(car, rand);
 		StartCoroutine(SpawnCar());
 	}
@@ -69,19 +76,19 @@ public class TrafficController2 : MonoBehaviour {
 		switch (rand) {
 			case 0:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180f, 0));
-				stopDest.x -= (carsInLane * 3f);
+				stopDest.x -= ((carsInLane-1) * 3f);
 				break;
 			case 1:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
-				stopDest.z -= (carsInLane * 3f);
+				stopDest.z -= ((carsInLane-1) * 3f);
 				break;
 			case 2:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 270f, 0));
-				stopDest.z += (carsInLane * 3f);
+				stopDest.z += ((carsInLane-1) * 3f);
 				break;
 			case 3:
 				car.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
-				stopDest.x += (carsInLane * 3f);
+				stopDest.x += ((carsInLane-1) * 3f);
 				break;
 			default:
 				Debug.Log("No lane at: " + rand);

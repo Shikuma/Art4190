@@ -1163,6 +1163,7 @@ MonoBehaviour:
   spawnInterval: 0
   stopQ: []
   lanes: []
+  carsInStopQ: 0
 --- !u!114 &1269087491
 MonoBehaviour:
   m_ObjectHideFlags: 0
