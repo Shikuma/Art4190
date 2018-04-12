@@ -12,12 +12,14 @@ public class PersonController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		goalLocation = goalObject.transform.position;
 		agent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(goalLocation != goalObject.transform.position) {
+			goalLocation = goalObject.transform.position;
+		}
 		agent.destination = goalLocation;
 	}
 }
