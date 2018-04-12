@@ -7,18 +7,22 @@ public class TrafficController2 : MonoBehaviour {
 	public GameObject[] spawnLocs, deSpawnLocs, stopLocs;
 	public GameObject carPrefab, carParent;
 	public float spawnInterval;
-	public static List<GameObject> lane1, lane2, lane3, lane4, stopQ;
-	public static List<GameObject>[] lanes;
+	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
+	public GameObject[] stopQ;
+	public Lane[] lanes;
+	public int carsInStopQ = 0;
+
+	Lane lane1, lane2, lane3, lane4;
 
 	// Use this for initialization
 	void Start () {
 		spawnInterval = 3f;
-		lane1 = new List<GameObject>();
-		lane2 = new List<GameObject>();
-		lane3 = new List<GameObject>();
-		lane4 = new List<GameObject>();
-		stopQ = new List<GameObject>();
-		lanes = new List<GameObject>[4];
+		lane1 = new Lane(5, 0);
+		lane2 = new Lane(5, 1);
+		lane3 = new Lane(5, 2);
+		lane4 = new Lane(5, 3);
+		stopQ = new GameObject[4];
+		lanes = new Lane[4];
 		lanes[0] = lane1;
 		lanes[1] = lane2;
 		lanes[2] = lane3;
@@ -28,46 +32,63 @@ public class TrafficController2 : MonoBehaviour {
 
 	private IEnumerator SpawnCar() {
 		yield return new WaitForSeconds(spawnInterval);
-		spawnInterval = 200000f;
+
+		//uncomment to spawn 1 car
+		//spawnInterval = 200000f;
+
 		int rand = Random.Range(0, lanes.Length - 1);
-		print("Spawning car");
-
-		GameObject currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
-		rotateCar(CreateCar(currCar, rand), rand);
-
-
+		//print("Spawning car");
+		GameObject currCar;
+		Car2 car;
+		
+		//If the lane pool is not full, instantiate a new one
+		if (!lanes[rand].full) {
+			currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
+			//rotateCar(CreateCar(currCar, rand), rand);
+			car = currCar.GetComponent<Car2>();
+			lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
+			car.carID = lanes[rand].currChildToSpawn;
+			car.lane = rand;
+			if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
+				print("LANE " + rand + " IS FULL");
+				lanes[rand].full = true;
+			}
+		//If it is full, pool the last one back to the spawn pos
+		}else {
+			print("INITIATING POOLING NOW OKAY THANK YOU");
+			currCar = lanes[rand].cars[lanes[rand].currChildToSpawn];
+			car = currCar.GetComponent<Car2>();
+			currCar.SetActive(true);
+			currCar.transform.position = spawnLocs[rand].transform.position;
+		}
+		lanes[rand].carsInLane++;
+		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren-1 ? 0 : lanes[rand].currChildToSpawn+1;
+		rotateCar(car, rand);
 		StartCoroutine(SpawnCar());
 	}
 
-	private Car2 CreateCar(GameObject currCar, int rand) {
-		Car2 car = currCar.GetComponent<Car2>();
-		car.lane = rand;
-		//Add to lane list
-		lanes[rand].Add(currCar);
-		print("LANE COUNT: " + lanes[rand].Count + " At lane: " + rand);
-		return car;
-	}
 	private void rotateCar(Car2 car, int rand) {
 		//Set stop location
 		Vector3 stopDest = stopLocs[rand].transform.position;
 		car.stopLocation = stopDest;
 		//Set rotation of car
+		int carsInLane = lanes[rand].carsInLane;
 		switch (rand) {
 			case 0:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 180f, 0));
-				stopDest.x -= ((lanes[rand].Count - 1) * 3f);
+				stopDest.x -= ((carsInLane-1) * 3f);
 				break;
 			case 1:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
-				stopDest.z -= ((lanes[rand].Count - 1) * 3f);
+				stopDest.z -= ((carsInLane-1) * 3f);
 				break;
 			case 2:
 				car.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 270f, 0));
-				stopDest.z += ((lanes[rand].Count - 1) * 3f);
+				stopDest.z += ((carsInLane-1) * 3f);
 				break;
 			case 3:
 				car.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
-				stopDest.x += ((lanes[rand].Count - 1) * 3f);
+				stopDest.x += ((carsInLane-1) * 3f);
 				break;
 			default:
 				Debug.Log("No lane at: " + rand);
@@ -76,6 +97,4 @@ public class TrafficController2 : MonoBehaviour {
 		car.despawnLocation = deSpawnLocs[rand].transform.position;
 		car.nextDestination = stopDest;
 	}
-
-	
 }
