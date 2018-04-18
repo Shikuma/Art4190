@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrafficController2 : MonoBehaviour {
 
-	public GameObject[] spawnLocs, deSpawnLocs, stopLocs;
+	public GameObject[] spawnLocs, deSpawnLocs, stopLocs, stopSigns;
 	public GameObject carPrefab, carParent;
 	public float spawnInterval;
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
@@ -13,6 +13,8 @@ public class TrafficController2 : MonoBehaviour {
 	public int carsInStopQ = 0;
 
 	Lane lane1, lane2, lane3, lane4;
+
+	public bool[] stops;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +30,29 @@ public class TrafficController2 : MonoBehaviour {
 		lanes[2] = lane3;
 		lanes[3] = lane4;
 		StartCoroutine(SpawnCar());
+		stops = new bool[4];
+	}
+
+	private void Update() {
+		if (!stops[0] && stopSigns[0].activeSelf)
+			stops[0] = true;
+		else if (stops[0] && !stopSigns[0].activeSelf)
+			stops[0] = false;
+
+		if (!stops[1] && stopSigns[1].activeSelf)
+			stops[1] = true;
+		else if (stops[1] && !stopSigns[1].activeSelf)
+			stops[1] = false;
+
+		if (!stops[2] && stopSigns[2].activeSelf)
+			stops[2] = true;
+		else if (stops[2] && !stopSigns[2].activeSelf)
+			stops[2] = false;
+
+		if (!stops[3] && stopSigns[3].activeSelf)
+			stops[3] = true;
+		else if (stops[3] && !stopSigns[3].activeSelf)
+			stops[3] = false;
 	}
 
 	private IEnumerator SpawnCar() {
