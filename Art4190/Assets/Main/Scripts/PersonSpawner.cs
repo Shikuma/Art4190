@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class PersonSpawner : MonoBehaviour {
 	public GameObject personPrefab, parentObject, destinationObject;
-	public float spawnInterval;
+	[SerializeField]
+	float spawnInterval, spawnMin, spawnMax;
+	public GameObject[] spawnLocations, destinationLocations;
 
 	// Use this for initialization
 	void Start () {
+		
 		StartCoroutine(SpawnPerson());
 	}
 
 	private IEnumerator SpawnPerson() {
+		spawnInterval = Random.Range(spawnMin, spawnMax);
 		yield return new WaitForSeconds(spawnInterval);
-
-		GameObject person = Instantiate(personPrefab, gameObject.transform.position, Quaternion.identity, parentObject.transform);
+		int rand = Random.Range(0, spawnLocations.Length);
+		GameObject person = Instantiate(personPrefab, spawnLocations[rand].transform.position, Quaternion.identity, parentObject.transform);
 		PersonController pc = person.GetComponent<PersonController>();
-		pc.goalObject = destinationObject;
+		pc.goalObject = destinationLocations[rand];
+
+		if (spawnMin > 1f) spawnMin--;
+		if (spawnMax > 5f) spawnMax--;
+
 		StartCoroutine(SpawnPerson());
 	}
 	
