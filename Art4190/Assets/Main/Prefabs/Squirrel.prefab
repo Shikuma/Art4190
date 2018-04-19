@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 95433577200182328}
   - component: {fileID: 195375678300438806}
   - component: {fileID: 114465866331223010}
+  - component: {fileID: 136415793219543834}
   m_Layer: 0
   m_Name: Squirrel
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1147747321779754}
   m_LocalRotation: {x: -0, y: -0.6862337, z: -0, w: 0.72738117}
-  m_LocalPosition: {x: 4.25, y: 0.743, z: 0.94}
+  m_LocalPosition: {x: -5.2863817, y: 3.61, z: -9.102278}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4626707484800216}
@@ -148,6 +149,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalObject: {fileID: 0}
+  gameController: {fileID: 0}
+--- !u!136 &136415793219543834
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147747321779754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195375678300438806
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -156,7 +171,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1147747321779754}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.3
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
