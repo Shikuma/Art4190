@@ -43,7 +43,7 @@ public class Car2 : MonoBehaviour {
 			}
 		}
 		else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
-			gameObject.SetActive(false);
+			Destroy(gameObject);
 		}
 	}
 

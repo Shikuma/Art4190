@@ -66,26 +66,17 @@ public class TrafficController2 : MonoBehaviour {
 		GameObject currCar;
 		Car2 car;
 		
-		//If the lane pool is not full, instantiate a new one
-		if (!lanes[rand].full) {
-			currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
-			//rotateCar(CreateCar(currCar, rand), rand);
-			car = currCar.GetComponent<Car2>();
-			lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
-			car.carID = lanes[rand].currChildToSpawn;
-			car.lane = rand;
-			if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
-				print("LANE " + rand + " IS FULL");
-				lanes[rand].full = true;
-			}
-		//If it is full, pool the last one back to the spawn pos
-		}else {
-			print("INITIATING POOLING NOW OKAY THANK YOU");
-			currCar = lanes[rand].cars[lanes[rand].currChildToSpawn];
-			car = currCar.GetComponent<Car2>();
-			currCar.SetActive(true);
-			currCar.transform.position = spawnLocs[rand].transform.position;
+		currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
+		//rotateCar(CreateCar(currCar, rand), rand);
+		car = currCar.GetComponent<Car2>();
+		lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
+		car.carID = lanes[rand].currChildToSpawn;
+		car.lane = rand;
+		if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
+			print("LANE " + rand + " IS FULL");
+			lanes[rand].full = true;
 		}
+
 		lanes[rand].carsInLane++;
 		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren-1 ? 0 : lanes[rand].currChildToSpawn+1;
 		rotateCar(car, rand);
