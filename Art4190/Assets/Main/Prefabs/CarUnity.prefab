@@ -89,9 +89,10 @@ GameObject:
   - component: {fileID: 114100480622290888}
   - component: {fileID: 114828441479818968}
   - component: {fileID: 195211862501567826}
+  - component: {fileID: 65809537753775630}
   m_Layer: 0
   m_Name: CarUnity
-  m_TagString: Untagged
+  m_TagString: car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -307,7 +308,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519332128810338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.216091, y: -0.043, z: -4.132}
+  m_LocalPosition: {x: -6.216091, y: -0.207, z: -4.132}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4965237902615102}
@@ -684,6 +685,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1673610893380286}
   m_Mesh: {fileID: 4300014, guid: f922c1e7bdfbfa346ad8539621e6bdbd, type: 3}
+--- !u!65 &65809537753775630
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519332128810338}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4671812, y: 1, z: 1}
+  m_Center: {x: 0.010250092, y: 1, z: 0}
 --- !u!95 &95717075525997226
 Animator:
   serializedVersion: 3
@@ -756,7 +769,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 1
+  m_BaseOffset: -0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

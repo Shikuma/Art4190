@@ -20,6 +20,6 @@ public class TitleController : MonoBehaviour {
 	}
 
 	public void LoadScene(string sceneName) {
-		SceneManager.LoadScene(sceneName);
+		SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
 	}
 }

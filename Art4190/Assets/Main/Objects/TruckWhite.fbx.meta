@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: a817d2cea59ed42f08558252a8ebca73
+timeCreated: 1524150248
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Truck_copy:WhiteTruck:group
+    100002: Truck_copy:WhiteTruck:pasted__pCube1
+    100004: Truck_copy:WhiteTruck:pasted__pCube1 1
+    100006: Truck_copy:WhiteTruck:pasted__pCube10
+    100008: Truck_copy:WhiteTruck:pasted__pCube10 1
+    100010: Truck_copy:WhiteTruck:pasted__pCube11
+    100012: Truck_copy:WhiteTruck:pasted__pCube11 1
+    100014: Truck_copy:WhiteTruck:pasted__pCube2
+    100016: Truck_copy:WhiteTruck:pasted__pCube3
+    100018: Truck_copy:WhiteTruck:pasted__pCube3 1
+    100020: Truck_copy:WhiteTruck:pasted__pCube7
+    100022: Truck_copy:WhiteTruck:pasted__pCube7 1
+    100024: Truck_copy:WhiteTruck:pasted__pCube8
+    100026: Truck_copy:WhiteTruck:pasted__pCube8 1
+    100028: Truck_copy:WhiteTruck:pasted__pCube9
+    100030: Truck_copy:WhiteTruck:pasted__pCube9 1
+    100032: Truck_copy:WhiteTruck:transform1
+    100034: Truck_copy:WhiteTruck:transform10
+    100036: Truck_copy:WhiteTruck:transform11
+    100038: Truck_copy:WhiteTruck:transform12
+    100040: Truck_copy:WhiteTruck:transform13
+    100042: Truck_copy:WhiteTruck:transform14
+    100044: Truck_copy:WhiteTruck:transform2
+    100046: Truck_copy:WhiteTruck:transform3
+    100048: Truck_copy:WhiteTruck:transform4
+    100050: Truck_copy:WhiteTruck:transform5
+    100052: Truck_copy:WhiteTruck:transform6
+    100054: Truck_copy:WhiteTruck:transform7
+    100056: Truck_copy:WhiteTruck:transform8
+    100058: Truck_copy:WhiteTruck:transform9
+    100060: //RootNode
+    400000: Truck_copy:WhiteTruck:group
+    400002: Truck_copy:WhiteTruck:pasted__pCube1
+    400004: Truck_copy:WhiteTruck:pasted__pCube1 1
+    400006: Truck_copy:WhiteTruck:pasted__pCube10
+    400008: Truck_copy:WhiteTruck:pasted__pCube10 1
+    400010: Truck_copy:WhiteTruck:pasted__pCube11
+    400012: Truck_copy:WhiteTruck:pasted__pCube11 1
+    400014: Truck_copy:WhiteTruck:pasted__pCube2
+    400016: Truck_copy:WhiteTruck:pasted__pCube3
+    400018: Truck_copy:WhiteTruck:pasted__pCube3 1
+    400020: Truck_copy:WhiteTruck:pasted__pCube7
+    400022: Truck_copy:WhiteTruck:pasted__pCube7 1
+    400024: Truck_copy:WhiteTruck:pasted__pCube8
+    400026: Truck_copy:WhiteTruck:pasted__pCube8 1
+    400028: Truck_copy:WhiteTruck:pasted__pCube9
+    400030: Truck_copy:WhiteTruck:pasted__pCube9 1
+    400032: Truck_copy:WhiteTruck:transform1
+    400034: Truck_copy:WhiteTruck:transform10
+    400036: Truck_copy:WhiteTruck:transform11
+    400038: Truck_copy:WhiteTruck:transform12
+    400040: Truck_copy:WhiteTruck:transform13
+    400042: Truck_copy:WhiteTruck:transform14
+    400044: Truck_copy:WhiteTruck:transform2
+    400046: Truck_copy:WhiteTruck:transform3
+    400048: Truck_copy:WhiteTruck:transform4
+    400050: Truck_copy:WhiteTruck:transform5
+    400052: Truck_copy:WhiteTruck:transform6
+    400054: Truck_copy:WhiteTruck:transform7
+    400056: Truck_copy:WhiteTruck:transform8
+    400058: Truck_copy:WhiteTruck:transform9
+    400060: //RootNode
+    2100000: Truck_copy_WhiteTruck_pasted__LamDarkGreen
+    2100002: Truck_copy_WhiteTruck_pasted__LamBlack
+    2100004: Truck_copy_WhiteTruck_pasted__PhongOffWhite
+    2100006: Truck_copy_WhiteTruck_pasted__LamGreen
+    2300000: Truck_copy:WhiteTruck:pasted__pCube11
+    3300000: Truck_copy:WhiteTruck:pasted__pCube11
+    4300000: Truck_copy:WhiteTruck:pasted__pCube11
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
