@@ -43,7 +43,7 @@ public class Car2 : MonoBehaviour {
 			}
 		}
 		else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
-			gameObject.SetActive(false);
+			Destroy(gameObject);
 		}
 	}
 
@@ -51,7 +51,8 @@ public class Car2 : MonoBehaviour {
 		departed = true;
 		stopped = false;
 		//print("ID: " + lane + "-" + carID + ". DEPARTING IN LANE: " + lane);
-		yield return new WaitForSeconds(stopDuration);
+		print(tc.stops[lane] + "==========================");
+		yield return new WaitForSeconds(tc.stops[lane] ? stopDuration : 0f);
 		tc.lanes[lane].carsInLane = tc.lanes[lane].carsInLane > 0 ? tc.lanes[lane].carsInLane-1 : 0;
 		//tc.lanes[lane].carsInLane--;
 		currDestination = despawnLocation;
