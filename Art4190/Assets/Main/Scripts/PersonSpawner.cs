@@ -13,7 +13,7 @@ public class PersonSpawner : MonoBehaviour {
 
 	private IEnumerator SpawnPerson() {
 		float time = GameObject.FindWithTag("GameController").GetComponent<DayNightController>().currentTimeOfDay;
-		yield return new WaitForSeconds(Mathf.Abs(time - 0.5f) * 10);
+		yield return new WaitForSeconds((Mathf.Abs(time - 0.5f) + 0.1f) * 5);
 
 		int rand = Random.Range(0, spawnLocations.Length);
 		GameObject person = Instantiate(personPrefab, spawnLocations[rand].transform.position, Quaternion.identity, parentObject.transform);
