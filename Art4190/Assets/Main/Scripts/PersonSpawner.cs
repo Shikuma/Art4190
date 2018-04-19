@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PersonSpawner : MonoBehaviour {
-	public GameObject personPrefab, parentObject, destinationObject;
-	public GameObject[] spawnLocations, destinationLocations;
+	public GameObject parentObject, destinationObject;
+	public GameObject[] spawnLocations, destinationLocations, prefabs;
+
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +17,8 @@ public class PersonSpawner : MonoBehaviour {
 		yield return new WaitForSeconds((Mathf.Abs(time - 0.5f) + 0.1f) * 5);
 
 		int rand = Random.Range(0, spawnLocations.Length);
-		GameObject person = Instantiate(personPrefab, spawnLocations[rand].transform.position, Quaternion.identity, parentObject.transform);
+		int index = Random.Range(0, prefabs.Length);
+		GameObject person = Instantiate(prefabs[index], spawnLocations[rand].transform.position, Quaternion.identity, parentObject.transform);
 		PersonController pc = person.GetComponent<PersonController>();
 		pc.goalObject = destinationLocations[rand];
 
