@@ -2051,12 +2051,18 @@ MonoBehaviour:
   - {fileID: 1564835666}
   - {fileID: 740993742}
   - {fileID: 875405837}
+  stopSigns:
+  - {fileID: 140336075}
+  - {fileID: 1488681616}
+  - {fileID: 537202960}
+  - {fileID: 1759628844}
   carPrefab: {fileID: 1519332128810338, guid: 86d19acfc43af8e49911a7f5942324f5, type: 2}
   carParent: {fileID: 1573529932}
   spawnInterval: 0
   stopQ: []
   lanes: []
   carsInStopQ: 0
+  stops: 
 --- !u!114 &1269087491
 MonoBehaviour:
   m_ObjectHideFlags: 0
