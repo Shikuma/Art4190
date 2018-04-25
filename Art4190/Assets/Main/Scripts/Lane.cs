@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Lane : MonoBehaviour {
 
-	public GameObject[] cars;
+	public List<GameObject> cars;
 	public int currChildToSpawn, maxChildren, currChildCount, laneNum, carsInLane;
 	public bool full;
 
 	public Lane(int maxChildren, int laneNum) {
-		cars = new GameObject[maxChildren];
+		cars = new List<GameObject>();
 		this.maxChildren = maxChildren;
 		this.laneNum = laneNum;
 		full = false;
