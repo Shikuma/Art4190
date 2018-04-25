@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class PersonController : MonoBehaviour {
-	public GameObject goalObject, gameController;
+	public GameObject goalObject, gameController, goodPS, badPS;
 
 	private Vector3 goalLocation;
 	private NavMeshAgent agent;
@@ -32,12 +32,21 @@ public class PersonController : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider c) {
 		if(c.gameObject.tag == "car") {
+			print("DEAD ========================");
 			Die(-10f);
 		}
 	}
 
 	void Die(float n) {
 		gs.UpdateMultiplier(gs.UpdateScore(n) > 0);
+		GameObject go;
+		if (n > 0) {
+			go = Instantiate(goodPS, transform.position, Quaternion.identity);
+		}
+		else {
+			go = Instantiate(badPS, transform.position, Quaternion.identity);
+		}
+		Destroy(go, 3f);
 		Destroy(gameObject);
 	}
 	
