@@ -80,6 +80,7 @@ public class Car2 : MonoBehaviour {
 				if (currIndex > tc.lanes[lane].maxChildren-1) currIndex = 0;
 				//print("ID: " + lane + "-" + carID + ". Updating car at index: " + currIndex + ".");
 				Car2 car = tc.lanes[lane].cars[currIndex].GetComponent<Car2>();
+				if (car == null) continue;
 				switch (lane) {
 					case 0:
 						car.nextDestination.x += 3f;
