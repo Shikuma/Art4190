@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
+using UnityEngine.UI;
 public class TrafficController2 : MonoBehaviour {
 
 	public GameObject[] spawnLocs, deSpawnLocs, stopLocs, stopSigns;
 	public GameObject carPrefab, carParent;
-	public float spawnInterval;
+	public float spawnInterval, speed, minSpeed, maxSpeed;
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
 	public GameObject[] stopQ;
 	public Lane[] lanes;
@@ -15,6 +16,9 @@ public class TrafficController2 : MonoBehaviour {
 	Lane lane1, lane2, lane3, lane4;
 
 	public bool[] stops;
+
+	public Text speedText;
+	public Button increaseBtn, decreaseBtn;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +35,53 @@ public class TrafficController2 : MonoBehaviour {
 		lanes[3] = lane4;
 		StartCoroutine(SpawnCar());
 		stops = new bool[4];
+
+		speedText.text = "" + speed;
+		setMPS(speed);
+	}
+	private void helper() {
+		foreach(Lane lane in lanes){
+			foreach(GameObject car in lane.cars){
+				car.GetComponent<NavMeshAgent>().speed = speed;
+			}
+		}
+	}
+	public void IncreaseSpeed(){
+		if( getMPH() + 1 < maxSpeed){
+			speed = float.Parse(speedText.text)+1;
+			speedText.text = "" + speed;
+			setMPS(speed);
+			helper();
+		}
+		if(getMPH() + 1 >= maxSpeed){
+			increaseBtn.image.color = new Color(1,1,1,0.2f);
+			increaseBtn.interactable = false;
+		}else{
+			decreaseBtn.image.color = new Color(1,1,1,1);
+			decreaseBtn.interactable = true;
+		}
+	}
+	public void DecreaseSpeed(){
+		if(getMPH() > minSpeed){
+			speed = float.Parse(speedText.text)-1;
+			speedText.text = "" + speed;
+			setMPS(speed);
+			helper();
+		}
+		if(getMPH() <= minSpeed) {
+			decreaseBtn.image.color = new Color(1,1,1, 0.2f);
+			decreaseBtn.interactable = false;
+		} else {
+			increaseBtn.image.color = new Color(1,1,1,1);
+			increaseBtn.interactable = true;
+		}
+	}
+
+	public float getMPH(){
+		return speed*2.23694f;
+	}
+	public void setMPS(float MPH){
+		speed = MPH * 0.44f;
 	}
 
 	private void Update() {
@@ -69,7 +120,8 @@ public class TrafficController2 : MonoBehaviour {
 		currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
 		//rotateCar(CreateCar(currCar, rand), rand);
 		car = currCar.GetComponent<Car2>();
-		lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
+		currCar.GetComponent<NavMeshAgent>().speed = speed;
+		lanes[rand].cars.Add(currCar);
 		car.carID = lanes[rand].currChildToSpawn;
 		car.lane = rand;
 		if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
