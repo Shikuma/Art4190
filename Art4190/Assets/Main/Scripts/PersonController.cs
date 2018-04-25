@@ -30,7 +30,7 @@ public class PersonController : MonoBehaviour {
 		}
 	}
 
-	private void OnCollisionEnter(Collision c) {
+	private void OnTriggerEnter(Collider c) {
 		if(c.gameObject.tag == "car") {
 			Die(-10f);
 		}

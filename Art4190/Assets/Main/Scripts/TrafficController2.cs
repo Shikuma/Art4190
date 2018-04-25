@@ -7,7 +7,7 @@ public class TrafficController2 : MonoBehaviour {
 
 	public GameObject[] spawnLocs, deSpawnLocs, stopLocs, stopSigns;
 	public GameObject carPrefab, carParent;
-	public float spawnInterval, speed, minSpeed, maxSpeed;
+	public float spawnInterval, speed, minSpeed, maxSpeed, speedMPH;
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
 	public GameObject[] stopQ;
 	public Lane[] lanes;
@@ -36,21 +36,23 @@ public class TrafficController2 : MonoBehaviour {
 		StartCoroutine(SpawnCar());
 		stops = new bool[4];
 
-		speedText.text = "" + speed;
+		speedMPH = speed;
+		speedText.text = "" + speedMPH + " MPH";
 		setMPS(speed);
 	}
 	private void helper() {
 		foreach(Lane lane in lanes){
 			foreach(GameObject car in lane.cars){
-				car.GetComponent<NavMeshAgent>().speed = speed;
+				if(car != null)
+					car.GetComponent<NavMeshAgent>().speed = speed;
 			}
 		}
 	}
 	public void IncreaseSpeed(){
 		if( getMPH() + 1 < maxSpeed){
-			speed = float.Parse(speedText.text)+1;
-			speedText.text = "" + speed;
-			setMPS(speed);
+			speedMPH++;
+			speedText.text = "" + speedMPH + " MPH";
+			setMPS(speedMPH);
 			helper();
 		}
 		if(getMPH() + 1 >= maxSpeed){
@@ -63,9 +65,9 @@ public class TrafficController2 : MonoBehaviour {
 	}
 	public void DecreaseSpeed(){
 		if(getMPH() > minSpeed){
-			speed = float.Parse(speedText.text)-1;
-			speedText.text = "" + speed;
-			setMPS(speed);
+			speedMPH--;
+			speedText.text = "" + speedMPH + " MPH";
+			setMPS(speedMPH);
 			helper();
 		}
 		if(getMPH() <= minSpeed) {
