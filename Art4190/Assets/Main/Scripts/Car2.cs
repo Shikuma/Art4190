@@ -79,8 +79,8 @@ public class Car2 : MonoBehaviour {
 				currIndex++;
 				if (currIndex > tc.lanes[lane].maxChildren-1) currIndex = 0;
 				//print("ID: " + lane + "-" + carID + ". Updating car at index: " + currIndex + ".");
+				if (tc.lanes[lane].cars[currIndex].GetComponent<Car2>() == null) continue;
 				Car2 car = tc.lanes[lane].cars[currIndex].GetComponent<Car2>();
-				if (car == null) continue;
 				switch (lane) {
 					case 0:
 						car.nextDestination.x += 3f;
@@ -99,42 +99,5 @@ public class Car2 : MonoBehaviour {
 				}
 			}
 		}
-
-		/*
-		print("EG: " + tc.lanes.Length);
-		//Update the lane list
-		//tempLane.Add(gameObject);
-		//List<GameObject> tempLane = new List<GameObject>();
-		//tempLane.AddRange(tc.lanes[lane]);
-		//Debug.Log("STOPPED COUNT: " + tempLane);
-		Debug.Log("STOPPED LANE: " + lane);
-		tc.lanes[lane].RemoveAt(0);
-		//Move all cars in the lane up 1 space
-		if (tc.lanes[lane].Count > 1) {
-			for (int i = 1; i < tc.lanes[lane].Count; i++) {
-				Car2 car = tc.lanes[lane][i].GetComponent<Car2>();
-				switch (lane) {
-					case 0:
-						car.nextDestination.x += 3f;
-						break;
-					case 1:
-						car.nextDestination.z += 3f;
-						break;
-					case 2:
-						car.nextDestination.z -= 3f;
-						break;
-					case 3:
-						car.nextDestination.x -= 3f;
-						break;
-					default:
-						break;
-				}
-				tc.lanes[lane][i - 1] = tc.lanes[lane][i];
-				tc.lanes[lane].RemoveAt(i);
-				print("Previous car dest: " + tc.lanes[lane][i - 1].gameObject.GetComponent<Car2>().nextDestination);
-				//tc.lanes[lane].AddRange(tc.lanes[lane]);
-			}
-		}
-		*/
 	}
 }
