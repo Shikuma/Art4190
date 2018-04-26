@@ -51,7 +51,6 @@ public class DragAndDrop : MonoBehaviour {
 					selectedObject = hit.transform.gameObject;
 					removeButton.SetActive(true);
 				}
-				print(hit.transform.gameObject.name);
 			}	
 		}
 	}
