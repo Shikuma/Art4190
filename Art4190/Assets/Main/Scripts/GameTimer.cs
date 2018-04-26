@@ -30,7 +30,7 @@ public class GameTimer : MonoBehaviour {
 	}
 
 	public void GameOver() {
-		pausing.Pause();
+		pausing.PauseEndGame();
 		Debug.Log("Game Has Ended");
 	}
 }
