@@ -29,7 +29,7 @@ public class Car2 : MonoBehaviour {
 			if (currDestination != nextDestination || (!stopped && !agent.hasPath)) {
 				currDestination = nextDestination;
 				agent.destination = currDestination;
-				Debug.Log("ID: " + lane + "-" + carID + ". Stop dest: " + stopLocation + ". Curr dest: " + currDestination);
+				//Debug.Log("ID: " + lane + "-" + carID + ". Stop dest: " + stopLocation + ". Curr dest: " + currDestination);
 			}
 			if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == stopLocation && !stopped) {
 				//print("ID: " + lane + "-" + carID + ". STOPPED IN STOPQ");
@@ -41,8 +41,7 @@ public class Car2 : MonoBehaviour {
 			else if (stopped && currStopQ == 1 && tc.carsInStopQ > 0) {
 				StartCoroutine(Stop());
 			}
-		}
-		else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
+		}else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
 			Destroy(gameObject);
 		}
 	}
@@ -111,11 +110,13 @@ public class Car2 : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 
 		index++;
-		if (index > tc.lanes[lane].maxChildren - 1) index = 0;
-
-		if (tc.lanes[lane].cars[index] == null) yield break;
+		if (index > tc.lanes[lane].maxChildren-1) index = 0;
+		Debug.Log("Current ID: " + carID + " is trying to update car at index: " + index + " - in lane " + lane);
+		if (tc.lanes[lane].cars[index] == null) {
+			Debug.Log("FAILED");
+			yield break;
+		}
 		Car2 car = tc.lanes[lane].cars[index].GetComponent<Car2>();
-
 		switch (lane) {
 			case 0:
 				car.nextDestination.x += 3f;
@@ -133,9 +134,9 @@ public class Car2 : MonoBehaviour {
 				break;
 		}
 
-		print("nextDest: " + car.nextDestination + " -- currDest: " + car.currDestination);
+		Debug.Log("ID: " + car.carID + "- lane: " + lane + ". Next dest: " + car.nextDestination + ". Curr dest: " + car.currDestination);
 
-		
+
 		i++;
 		if (i >= tc.lanes[lane].carsInLane) yield break;
 

@@ -23,10 +23,10 @@ public class TrafficController2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spawnInterval = 3f;
-		lane1 = new Lane(5, 0);
-		lane2 = new Lane(5, 1);
-		lane3 = new Lane(5, 2);
-		lane4 = new Lane(5, 3);
+		lane1 = new Lane(40, 0);
+		lane2 = new Lane(40, 1);
+		lane3 = new Lane(40, 2);
+		lane4 = new Lane(40, 3);
 		stopQ = new GameObject[4];
 		lanes = new Lane[4];
 		lanes[0] = lane1;
