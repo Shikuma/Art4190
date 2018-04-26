@@ -5,8 +5,8 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 public class TrafficController2 : MonoBehaviour {
 
-	public GameObject[] spawnLocs, deSpawnLocs, stopLocs, stopSigns;
-	public GameObject carPrefab, carParent;
+	public GameObject[] spawnLocs, deSpawnLocs, stopLocs, stopSigns, carPrefabs;
+	public GameObject carParent;
 	public float spawnInterval, speed, minSpeed, maxSpeed, speedMPH;
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
 	public GameObject[] stopQ;
@@ -118,8 +118,8 @@ public class TrafficController2 : MonoBehaviour {
 		//print("Spawning car");
 		GameObject currCar;
 		Car2 car;
-		
-		currCar = Instantiate(carPrefab, spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
+			
+		currCar = Instantiate(carPrefabs[Random.Range(0, carPrefabs.Length)], spawnLocs[rand].transform.position, Quaternion.identity, carParent.transform);
 		//rotateCar(CreateCar(currCar, rand), rand);
 		car = currCar.GetComponent<Car2>();
 		currCar.GetComponent<NavMeshAgent>().speed = speed;
