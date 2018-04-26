@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33404046278557064}
   - component: {fileID: 65872559392857312}
   - component: {fileID: 23269982999748826}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33201154448359318}
   - component: {fileID: 65201495368256734}
   - component: {fileID: 23774086988214860}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Light Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747683872586344}
   - component: {fileID: 108958263669085566}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

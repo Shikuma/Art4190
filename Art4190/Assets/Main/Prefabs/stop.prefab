@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4992488667537616}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4069103945851472}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4610348055787354}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4651409752668698}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4789249130532588}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4186478869088504}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: typeMesh1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4463309984890602}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCube3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4539837681579210}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: transform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4857912160945424}
   - component: {fileID: 95667729833252050}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: stop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 4876497587326648}
   - component: {fileID: 33984399201343346}
   - component: {fileID: 23066138480336774}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: typeMesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4582462519943138}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

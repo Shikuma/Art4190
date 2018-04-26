@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour {
 	public GameObject[] standardObjects, userObjects;
-	private bool isDragging = false, isStopSignSelected;
+	private bool isDragging = false, isStopSignSelected, isLightPoleSelected;
+	private float yPos;
 	private GameObject draggingObject;
 	public GameObject stopSign, streetLight, flower;
 	// Use this for initialization
@@ -24,13 +25,17 @@ public class DragAndDrop : MonoBehaviour {
 				if(isStopSignSelected) {
 					draggingObject = Instantiate(stopSign, Vector3.zero, Quaternion.identity);
 					isStopSignSelected = false;
+					yPos = 1f;
+				}else if(isLightPoleSelected){
+					draggingObject = Instantiate(streetLight, Vector3.zero, Quaternion.identity);
+					isLightPoleSelected = false;
+					yPos = 2f;
 				}
 			}
-
-
             if (Physics.Raycast(ray, out hit)) {
-				
-				draggingObject.transform.position = hit.point;
+				draggingObject.transform.position = new Vector3(hit.point.x,
+																yPos,
+																hit.point.z);
             }
 			
 		}
@@ -39,5 +44,10 @@ public class DragAndDrop : MonoBehaviour {
 	public void stopSignCreate() {
 		isDragging = true;
 		isStopSignSelected = true;
+	}
+
+	public void lightPoleCreate() {
+		isDragging = true;
+		isLightPoleSelected = true;
 	}
 }
