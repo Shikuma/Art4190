@@ -45,4 +45,8 @@ public class GameStats : MonoBehaviour {
 		happinessMeter.value = rating;
 		happinessPercent.text = "" + ((rating / happinessMeter.maxValue) * 100) + "%";
 	}
+
+	public int Rating() {
+		return (int)rating;
+	}
 }
