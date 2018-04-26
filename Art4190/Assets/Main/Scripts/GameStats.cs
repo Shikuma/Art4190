@@ -10,11 +10,14 @@ public class GameStats : MonoBehaviour {
 	[SerializeField]
 	int deaths;
 
-	public Text scoreText;
+	public Text scoreText, happinessPercent;
+	public Slider happinessMeter;
 
 	// Use this for initialization
 	void Start () {
 		scoreText.text = "" +  score;
+		happinessMeter.value = happinessMeter.maxValue;
+		rating = happinessMeter.maxValue;
 	}
 	
 	// Update is called once per frame
@@ -32,5 +35,14 @@ public class GameStats : MonoBehaviour {
 
 	public void UpdateMultiplier(bool shouldReset) {
 		multiplier = shouldReset ? 1 : multiplier + 1;
+	}
+
+	public void UpdateRating(int n) {
+		rating += n;
+		if (rating > 100) rating = 100;
+		else if (rating < 0) rating = 0;
+		print("RATING " + rating);
+		happinessMeter.value = rating;
+		happinessPercent.text = "" + ((rating / happinessMeter.maxValue) * 100) + "%";
 	}
 }

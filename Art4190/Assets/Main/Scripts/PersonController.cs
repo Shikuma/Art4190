@@ -26,19 +26,20 @@ public class PersonController : MonoBehaviour {
 		agent.destination = goalLocation;
 
 		if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)) {
-			Die(25f);
+			Die(25f, 5);
 		}
 	}
 
 	private void OnTriggerEnter(Collider c) {
 		if(c.gameObject.tag == "car") {
 			print("DEAD ========================");
-			Die(-10f);
+			Die(-10f, -10);
 		}
 	}
 
-	void Die(float n) {
+	void Die(float n, int rating) {
 		gs.UpdateMultiplier(gs.UpdateScore(n) > 0);
+		gs.UpdateRating(rating);
 		GameObject go;
 		if (n > 0) {
 			go = Instantiate(goodPS, transform.position, Quaternion.identity);
