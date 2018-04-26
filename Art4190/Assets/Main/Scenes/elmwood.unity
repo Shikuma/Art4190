@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1028896900}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.5748249, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5729,7 +5729,13 @@ MonoBehaviour:
   - {fileID: 1488681616}
   - {fileID: 537202960}
   - {fileID: 1759628844}
-  carPrefab: {fileID: 1519332128810338, guid: 86d19acfc43af8e49911a7f5942324f5, type: 2}
+  carPrefabs:
+  - {fileID: 1303962029702862, guid: 8bf7cb320beac41dc8754c61ce7f6632, type: 2}
+  - {fileID: 1531253630141018, guid: 3680d2c1eb4f44fddac68a92cd1a8a78, type: 2}
+  - {fileID: 1646617178620922, guid: c0f710fa28ed240fc927d01b99d49819, type: 2}
+  - {fileID: 1519332128810338, guid: 86d19acfc43af8e49911a7f5942324f5, type: 2}
+  - {fileID: 1289677171718338, guid: 25fd4dae219dc49d3bd59f746a12373b, type: 2}
+  - {fileID: 1269139865090030, guid: 1e542c0e7970942e08eed16ac974df19, type: 2}
   carParent: {fileID: 1573529932}
   spawnInterval: 0
   speed: 25
