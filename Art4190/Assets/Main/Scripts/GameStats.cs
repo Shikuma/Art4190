@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameStats : MonoBehaviour {
 
 	[SerializeField]
-	float score, money, rating, multiplier;
+	public float score, money, rating, multiplier;
 	[SerializeField]
 	int deaths;
 
