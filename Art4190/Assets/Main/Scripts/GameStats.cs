@@ -43,7 +43,7 @@ public class GameStats : MonoBehaviour {
 		else if (rating < 0) rating = 0;
 		print("RATING " + rating);
 		happinessMeter.value = rating;
-		happinessPercent.text = "" + ((rating / happinessMeter.maxValue) * 100) + "%";
+		//happinessPercent.text = "" + ((rating / happinessMeter.maxValue) * 100) + "%";
 	}
 
 	public int Rating() {
