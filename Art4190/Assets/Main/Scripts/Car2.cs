@@ -117,22 +117,32 @@ public class Car2 : MonoBehaviour {
 			yield break;
 		}
 		Car2 car = tc.lanes[lane].cars[index].GetComponent<Car2>();
+		int carsInLane = tc.lanes[lane].carsInLane;
 		switch (lane) {
 			case 0:
-				car.nextDestination.x += 3f;
+				if (car.nextDestination.x != stopLocation.x - (i * 3f)) {
+					car.nextDestination.x = stopLocation.x - (i * 3f);
+				}
 				break;
 			case 1:
-				car.nextDestination.z += 3f;
+				if (car.nextDestination.z != stopLocation.z - (i * 3f)) {
+					car.nextDestination.z = stopLocation.z - (i * 3f);
+				}
 				break;
 			case 2:
-				car.nextDestination.z -= 3f;
+				if (car.nextDestination.z != stopLocation.z + (i * 3f)) {
+					car.nextDestination.z = stopLocation.z + (i * 3f);
+				}
 				break;
 			case 3:
-				car.nextDestination.x -= 3f;
+				if (car.nextDestination.x != stopLocation.x + (i * 3f)) {
+					car.nextDestination.x = stopLocation.x + (i * 3f);
+				}
 				break;
 			default:
 				break;
 		}
+		
 
 		Debug.Log("ID: " + car.carID + "- lane: " + lane + ". Next dest: " + car.nextDestination + ". Curr dest: " + car.currDestination);
 

@@ -23,10 +23,10 @@ public class TrafficController2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spawnInterval = 3f;
-		lane1 = new Lane(40, 0);
-		lane2 = new Lane(40, 1);
-		lane3 = new Lane(40, 2);
-		lane4 = new Lane(40, 3);
+		lane1 = new Lane(10, 0);
+		lane2 = new Lane(10, 1);
+		lane3 = new Lane(10, 2);
+		lane4 = new Lane(10, 3);
 		stopQ = new GameObject[4];
 		lanes = new Lane[4];
 		lanes[0] = lane1;
@@ -123,7 +123,8 @@ public class TrafficController2 : MonoBehaviour {
 		//rotateCar(CreateCar(currCar, rand), rand);
 		car = currCar.GetComponent<Car2>();
 		currCar.GetComponent<NavMeshAgent>().speed = speed;
-		lanes[rand].cars.Add(currCar);
+		if (lanes[rand].full) lanes[rand].cars[lanes[rand].currChildToSpawn] = currCar;
+		else lanes[rand].cars.Add(currCar);
 		car.carID = lanes[rand].currChildToSpawn;
 		car.lane = rand;
 		if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
@@ -134,7 +135,47 @@ public class TrafficController2 : MonoBehaviour {
 		lanes[rand].carsInLane++;
 		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren-1 ? 0 : lanes[rand].currChildToSpawn+1;
 		rotateCar(car, rand);
+		UpdateCarsInFront(car.carID, car.lane, lanes[rand].carsInLane);
 		StartCoroutine(SpawnCar());
+	}
+
+	private void UpdateCarsInFront(int carID, int lane, int carsInLane) {
+		print("UPDATE CARS IN FRONT -- " + carID);
+		for(int i = 1; i < carsInLane; i++) {
+			int nextCar = 0;
+			nextCar = carID - i < 0 ? lanes[lane].maxChildren + carID - i : carID - i;
+			if (nextCar > lanes[lane].cars.Capacity){ // || !lanes[lane].cars[nextCar]) {
+				print("BREAKING OUT -- " + nextCar);
+				continue;
+			}
+			Car2 car = lanes[lane].cars[nextCar].GetComponent<Car2>();
+			print("CARSSSSSSSSSSS ----- " + (carsInLane) + " " +  i);
+			switch (lane) {
+				case 0:
+					if (car.nextDestination.x != car.stopLocation.x - ((carsInLane - i - 1) * 3f)) {
+						car.nextDestination.x = car.stopLocation.x - ((carsInLane - i - 1) * 3f);
+					}
+					break;
+				case 1:
+					if (car.nextDestination.z != car.stopLocation.z - ((carsInLane - i - 1) * 3f)) {
+						car.nextDestination.z = car.stopLocation.z - ((carsInLane - i - 1) * 3f);
+					}
+					break;
+				case 2:
+					if (car.nextDestination.z != car.stopLocation.z + ((carsInLane - i - 1) * 3f)) {
+						car.nextDestination.z = car.stopLocation.z + ((carsInLane - i - 1) * 3f);
+					}
+					break;
+				case 3:
+					if (car.nextDestination.x != car.stopLocation.x + ((carsInLane - i - 1) * 3f)) {
+						car.nextDestination.x = car.stopLocation.x + ((carsInLane - i - 1) * 3f);
+					}
+					break;
+				default:
+					break;
+			}
+
+		}
 	}
 
 	private void rotateCar(Car2 car, int rand) {
