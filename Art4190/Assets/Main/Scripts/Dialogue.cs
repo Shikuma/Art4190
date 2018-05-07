@@ -27,7 +27,7 @@ public class Dialogue : MonoBehaviour
     }
     public void GiveFeedBack()
     {
-        dialogueText.text = FeedBack(gs.rating);
+        dialogueText.text = FeedBack(gs.rating_pedestrian);
         panel.SetActive(Random.Range(0, 5) >= 1);
     }
     private string FeedBack(float score)
