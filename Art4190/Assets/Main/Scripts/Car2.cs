@@ -14,12 +14,14 @@ public class Car2 : MonoBehaviour {
 
 	GameObject gc;
 	TrafficController2 tc;
+	GameStats gs;
 
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
 		gc = GameObject.FindWithTag("GameController");
 		tc = gc.GetComponent<TrafficController2>();
+		gs = gc.GetComponent<GameStats>();
 		currDestination = Vector3.zero;
 	}
 	
@@ -42,6 +44,7 @@ public class Car2 : MonoBehaviour {
 				StartCoroutine(Stop());
 			}
 		}else if (departed && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f) && currDestination == despawnLocation) {
+			gs.UpdateRating_Driver(5);
 			Destroy(gameObject);
 		}
 	}

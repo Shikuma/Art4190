@@ -6,18 +6,19 @@ using UnityEngine.UI;
 public class GameStats : MonoBehaviour {
 
 	[SerializeField]
-	public float score, money, rating, multiplier;
+	public float score, money, rating_pedestrian, rating_driver, multiplier;
 	[SerializeField]
 	int deaths;
 
-	public Text scoreText, happinessPercent;
-	public Slider happinessMeter;
+	public Text scoreText;
+	public Slider happiness_pedestrian, happiness_driver;
 
 	// Use this for initialization
 	void Start () {
 		scoreText.text = "" +  score;
-		happinessMeter.value = happinessMeter.maxValue;
-		rating = happinessMeter.maxValue;
+		happiness_pedestrian.value = happiness_pedestrian.maxValue;
+		rating_pedestrian = happiness_pedestrian.maxValue;
+		rating_driver = happiness_driver.maxValue;
 	}
 	
 	// Update is called once per frame
@@ -37,16 +38,20 @@ public class GameStats : MonoBehaviour {
 		multiplier = shouldReset ? 1 : multiplier + 1;
 	}
 
-	public void UpdateRating(int n) {
-		rating += n;
-		if (rating > 100) rating = 100;
-		else if (rating < 0) rating = 0;
-		print("RATING " + rating);
-		happinessMeter.value = rating;
-		//happinessPercent.text = "" + ((rating / happinessMeter.maxValue) * 100) + "%";
+	public void UpdateRating_Pedestrian(int n) {
+		rating_pedestrian += n;
+		if (rating_pedestrian > 100) rating_pedestrian = 100;
+		else if (rating_pedestrian < 0) rating_pedestrian = 0;
+		print("rating_pedestrian " + rating_pedestrian);
+		happiness_pedestrian.value = rating_pedestrian;
+		//happinessPercent.text = "" + ((rating_pedestrian / happiness_pedestrian.maxValue) * 100) + "%";
 	}
 
-	public int Rating() {
-		return (int)rating;
+	public void UpdateRating_Driver(int n) {
+		rating_driver += n;
+		if (rating_driver > 100) rating_driver = 100;
+		else if (rating_driver < 0) rating_pedestrian = 0;
+		happiness_driver.value = rating_driver;
 	}
+	
 }

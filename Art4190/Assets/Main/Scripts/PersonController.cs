@@ -44,7 +44,7 @@ public class PersonController : MonoBehaviour {
 
 	void Die(float n, int rating) {
 		gs.UpdateMultiplier(gs.UpdateScore(n) > 0);
-		gs.UpdateRating(rating);
+		gs.UpdateRating_Pedestrian(rating);
 		GameObject go;
 		if (n > 0) {
 			go = Instantiate(goodPS, transform.position, Quaternion.identity);
