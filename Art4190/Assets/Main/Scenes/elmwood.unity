@@ -2607,6 +2607,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114727775003460234, guid: 647ab095bf8295f4887753e2c3f2bb5b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 416416942}
+    - target: {fileID: 114727775003460234, guid: 647ab095bf8295f4887753e2c3f2bb5b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 647ab095bf8295f4887753e2c3f2bb5b, type: 2}
   m_IsPrefabParent: 0
@@ -3596,6 +3606,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: elmwood
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1269087496}
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -7324,6 +7345,8 @@ MonoBehaviour:
   rating_driver: 0
   multiplier: 1
   deaths: 0
+  safePedestrians: 0
+  deadPedestrians: 0
   scoreText: {fileID: 1587514336}
   happiness_pedestrian: {fileID: 1145993853}
   happiness_driver: {fileID: 857006390}
@@ -7501,7 +7524,7 @@ MonoBehaviour:
   pausePanel: {fileID: 416416942}
   howToPlayPanel: {fileID: 531242358}
   endGamePanel: {fileID: 808087702}
-  ratingText: {fileID: 2051708450}
+  rating_pedestrianText: {fileID: 0}
 --- !u!114 &1269087497
 MonoBehaviour:
   m_ObjectHideFlags: 0

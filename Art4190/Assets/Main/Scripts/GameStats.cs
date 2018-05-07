@@ -8,13 +8,16 @@ public class GameStats : MonoBehaviour {
 	[SerializeField]
 	public float score, money, rating_pedestrian, rating_driver, multiplier;
 	[SerializeField]
-	int deaths;
+	int deaths, safePedestrians, deadPedestrians;
 
 	public Text scoreText;
 	public Slider happiness_pedestrian, happiness_driver;
 
+	Pausing pausing;
+
 	// Use this for initialization
 	void Start () {
+		pausing = GetComponent<Pausing>();
 		scoreText.text = "" +  score;
 		happiness_pedestrian.value = happiness_pedestrian.maxValue;
 		rating_pedestrian = happiness_pedestrian.maxValue;
@@ -39,18 +42,31 @@ public class GameStats : MonoBehaviour {
 	}
 
 	public void UpdateRating_Pedestrian(int n) {
+		if(n > 0) safePedestrians++;
+		else deadPedestrians++;
+		 //|| (deadPedestrians % 3 == 0 && n < 0)) {
 		rating_pedestrian += n;
 		if (rating_pedestrian > 100) rating_pedestrian = 100;
-		else if (rating_pedestrian < 0) rating_pedestrian = 0;
-		print("rating_pedestrian " + rating_pedestrian);
-		happiness_pedestrian.value = rating_pedestrian;
-		//happinessPercent.text = "" + ((rating_pedestrian / happiness_pedestrian.maxValue) * 100) + "%";
+		else if (rating_pedestrian < 0) {
+			rating_pedestrian = 0;
+			happiness_pedestrian.value = rating_pedestrian;
+			pausing.PauseEndGame((int)rating_pedestrian, (int)rating_driver);
+		}
+
+		if ((safePedestrians % 5 == 0 && n > 0) || n < 0) {
+			happiness_pedestrian.value = rating_pedestrian;
+			//happinessPercent.text = "" + ((rating_pedestrian / happiness_pedestrian.maxValue) * 100) + "%";
+		}
 	}
 
 	public void UpdateRating_Driver(int n) {
 		rating_driver += n;
 		if (rating_driver > 100) rating_driver = 100;
-		else if (rating_driver < 0) rating_pedestrian = 0;
+		else if (rating_driver < 0) {
+			rating_pedestrian = 0;
+			happiness_driver.value = rating_driver;
+			pausing.PauseEndGame((int)rating_pedestrian, (int)rating_driver);
+		}
 		happiness_driver.value = rating_driver;
 	}
 	

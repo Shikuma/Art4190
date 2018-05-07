@@ -8,7 +8,7 @@ public class Pausing : MonoBehaviour {
 	public bool paused;
 
 	public GameObject pausePanel, howToPlayPanel, endGamePanel;
-	public Text ratingText;
+	public Text rating_pedestrianText;
 	
 	// Use this for initialization
 	void Start () {
@@ -30,14 +30,19 @@ public class Pausing : MonoBehaviour {
 		pausePanel.SetActive(paused);
 	}
 
-	public void PauseEndGame(int rating) {
+	public void PauseEndGame(int rating_pedestrian, int rating_driver) {
 		Pause();
 		endGamePanel.SetActive(!endGamePanel.activeSelf);
 		if (paused){
-			if (rating < 25) ratingText.text = "You did poorly :(";
-			else if (rating < 50) ratingText.text = "You did okay..";
-			else if (rating < 75) ratingText.text = "You did pretty good!";
-			else ratingText.text = "You did amazing! :)";
+			if (rating_pedestrian < 25) rating_pedestrianText.text = "The pedestrians were not safe enough, ";
+			else if (rating_pedestrian < 50) rating_pedestrianText.text = "The pedestrians were scared for their lives, ";
+			else if (rating_pedestrian < 75) rating_pedestrianText.text = "The pedestrians were moderately happy, ";
+			else rating_pedestrianText.text = "The pedestrians were very happy, ";
+
+			if (rating_driver < 25) rating_pedestrianText.text += " and the drivers were not safe enough.";
+			else if (rating_driver < 50) rating_pedestrianText.text += " and the drivers were not very happy.";
+			else if (rating_driver < 75) rating_pedestrianText.text += " and the drivers were moderately happy!";
+			else rating_pedestrianText.text += " and the drivers were very happy!";
 		}
 	}
 
