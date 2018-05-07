@@ -11,7 +11,7 @@ public class TrafficController2 : MonoBehaviour {
 	//public List<GameObject> lane1, lane2, lane3, lane4, stopQ;
 	public GameObject[] stopQ;
 	public Lane[] lanes;
-	public int carsInStopQ = 0;
+	public int carsInStopQ = 0, previousLane = 0;
 
 	Lane lane1, lane2, lane3, lane4;
 
@@ -115,6 +115,8 @@ public class TrafficController2 : MonoBehaviour {
 		//spawnInterval = 200000f;
 
 		int rand = Random.Range(0, lanes.Length - 1);
+		if (spawnInterval == 0 && rand == previousLane) rand++;
+		if (rand == lanes.Length) rand = 0;
 		//print("Spawning car");
 		GameObject currCar;
 		Car2 car;
@@ -128,7 +130,6 @@ public class TrafficController2 : MonoBehaviour {
 		car.carID = lanes[rand].currChildToSpawn;
 		car.lane = rand;
 		if (lanes[rand].currChildToSpawn + 1 == lanes[rand].maxChildren) {
-			print("LANE " + rand + " IS FULL");
 			lanes[rand].full = true;
 		}
 
@@ -136,20 +137,19 @@ public class TrafficController2 : MonoBehaviour {
 		lanes[rand].currChildToSpawn = lanes[rand].currChildToSpawn >= lanes[rand].maxChildren-1 ? 0 : lanes[rand].currChildToSpawn+1;
 		rotateCar(car, rand);
 		UpdateCarsInFront(car.carID, car.lane, lanes[rand].carsInLane);
+		spawnInterval = spawnInterval == 0f ? 3f : 0f;
+		previousLane = rand;
 		StartCoroutine(SpawnCar());
 	}
 
 	private void UpdateCarsInFront(int carID, int lane, int carsInLane) {
-		print("UPDATE CARS IN FRONT -- " + carID);
 		for(int i = 1; i < carsInLane; i++) {
 			int nextCar = 0;
 			nextCar = carID - i < 0 ? lanes[lane].maxChildren + carID - i : carID - i;
 			if (nextCar > lanes[lane].cars.Capacity){ // || !lanes[lane].cars[nextCar]) {
-				print("BREAKING OUT -- " + nextCar);
 				continue;
 			}
 			Car2 car = lanes[lane].cars[nextCar].GetComponent<Car2>();
-			print("CARSSSSSSSSSSS ----- " + (carsInLane) + " " +  i);
 			switch (lane) {
 				case 0:
 					if (car.nextDestination.x != car.stopLocation.x - ((carsInLane - i - 1) * 3f)) {

@@ -17,7 +17,7 @@ public class Dialogue : MonoBehaviour {
 		StartCoroutine(GiveFeedBack());
 	}
 	public IEnumerator GiveFeedBack() {
-		dialogueText.text = FeedBack(gs.rating);
+		dialogueText.text = FeedBack(gs.rating_pedestrian);
 		yield return new WaitForSeconds(5f);
 		panel.SetActive(Random.Range(0,5) >= 1);
 		StartCoroutine(GiveFeedBack());

@@ -34,7 +34,7 @@ public class GameTimer : MonoBehaviour {
 	}
 
 	public void GameOver() {
-		pausing.PauseEndGame(gs.Rating());
+		pausing.PauseEndGame((int)gs.rating_pedestrian);
 		Debug.Log("Game Has Ended");
 	}
 }
