@@ -10,12 +10,14 @@ public class PersonController : MonoBehaviour {
 	private NavMeshAgent agent;
 
 	GameStats gs;
+	Dialogue diag;
 
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent>();
 		gameController = GameObject.FindWithTag("GameController");
 		gs = gameController.GetComponent<GameStats>();
+		diag = gameController.GetComponent<Dialogue>();
 	}
 	
 	// Update is called once per frame
@@ -27,6 +29,8 @@ public class PersonController : MonoBehaviour {
 
 		if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)) {
 			Die(25f, 5);
+			if(Random.Range(0,10) >= 7)
+				diag.GiveGoodFeedBack();
 		}
 	}
 
@@ -34,6 +38,7 @@ public class PersonController : MonoBehaviour {
 		if(c.gameObject.tag == "car") {
 			print("DEAD ========================");
 			Die(-10f, -10);
+			diag.GiveBadFeedBack();
 		}
 	}
 
