@@ -26,6 +26,7 @@ public class DragAndDrop : MonoBehaviour {
 					isLightPoleSelected = false;
 					if ((hit.transform.gameObject.tag == "stopSign" && draggingObject.gameObject.tag == "stopSign") || (hit.transform.gameObject.tag == "lightPole" && draggingObject.gameObject.tag == "lightPole")) {
 						hit.transform.GetChild(0).gameObject.SetActive(true);
+						hit.transform.GetChild(1).gameObject.SetActive(false);
 					}
 					Destroy(draggingObject);
 				}
@@ -67,6 +68,7 @@ public class DragAndDrop : MonoBehaviour {
 
 	public void RemoveSelected() {
 		selectedObject.transform.GetChild(0).gameObject.SetActive(false);
+		selectedObject.transform.GetChild(1).gameObject.SetActive(true);
 		removeButton.SetActive(false);
 	}
 }

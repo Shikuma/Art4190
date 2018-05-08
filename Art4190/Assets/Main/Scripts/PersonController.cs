@@ -28,7 +28,7 @@ public class PersonController : MonoBehaviour {
 		agent.destination = goalLocation;
 
 		if(!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)) {
-			Die(25f, 5);
+			Die(15f, 3);
 			if(Random.Range(0,10) >= 7)
 				diag.GiveGoodFeedBack();
 		}
@@ -37,16 +37,16 @@ public class PersonController : MonoBehaviour {
 	private void OnTriggerEnter(Collider c) {
 		if(c.gameObject.tag == "car") {
 			print("DEAD ========================");
-			Die(-10f, -10);
+			Die(-15f, -15);
 			diag.GiveBadFeedBack();
 		}
 	}
 
-	void Die(float n, int rating) {
-		gs.UpdateMultiplier(gs.UpdateScore(n) > 0);
+	void Die(float score, int rating) {
+		gs.UpdateMultiplier(gs.UpdateScore(score) > 0);
 		gs.UpdateRating_Pedestrian(rating);
 		GameObject go;
-		if (n > 0) {
+		if (score > 0) {
 			go = Instantiate(goodPS, transform.position, Quaternion.identity);
 		}
 		else {
